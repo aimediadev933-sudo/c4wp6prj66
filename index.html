@@ -1,1 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhutan e-Learning Implementation - Digital Education Initiative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary: #EC1550;
+            --secondary: #F69AB0;
+            --body: #F8F3F0;
+            --text: #1D1D1B;
+            --secondary-dark: #5E0023;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--body);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(236, 21, 80, 0.3);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="education" width="20" height="20" patternUnits="userSpaceOnUse"><rect x="8" y="8" width="4" height="4" fill="white" opacity="0.1"/><circle cx="10" cy="10" r="1.5" fill="white" opacity="0.08"/></pattern></defs><rect width="100" height="100" fill="url(%23education)"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: var(--white);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Partners Section */
+        .partners {
+            background: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .partners h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-item {
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-item img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Overview Section */
+        .overview {
+            background: var(--body);
+            padding: 4rem 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .content-text h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(236, 21, 80, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Bhutan Section */
+        .bhutan {
+            background: var(--white);
+            padding: 4rem 0;
+        }
+
+        .bhutan-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .bhutan-text h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bhutan-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            background: var(--body);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 10px rgba(236, 21, 80, 0.1);
+        }
+
+        .feature-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .bhutan-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(236, 21, 80, 0.3);
+        }
+
+        .bhutan-highlight h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .bhutan-highlight .flag {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Schools Section */
+        .schools {
+            background: var(--body);
+            padding: 4rem 0;
+        }
+
+        .schools h2 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .schools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .school-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 20px rgba(236, 21, 80, 0.1);
+        }
+
+        .school-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .school-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .school-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Activities Section */
+        .activities {
+            background: var(--white);
+            padding: 4rem 0;
+        }
+
+        .activities h2 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .activity-card {
+            background: var(--body);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .activity-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .activity-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .activity-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Outcomes Section */
+        .outcomes {
+            background: var(--body);
+            padding: 4rem 0;
+        }
+
+        .outcomes h2 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .outcome-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(236, 21, 80, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .outcome-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .outcome-card h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .outcome-card p {
+            color: var(--text);
+        }
+
+        /* Partners Grid */
+        .partners-grid {
+            background: var(--white);
+            padding: 4rem 0;
+        }
+
+        .partners-grid h2 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .partners-institutions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .partner-card {
+            background: var(--body);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .partner-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .partner-card h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .partner-card p {
+            color: var(--text);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Future Directions */
+        .future {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .future-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .future h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .future-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .future-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .future-item h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-dark);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p {
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .sdg-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .sdg-tag {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .content-grid,
+            .bhutan-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logos {
+                gap: 2rem;
+            }
+
+            .logo-item {
+                height: 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav {
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .schools-grid,
+            .activities-grid,
+            .outcomes-grid,
+            .partners-institutions,
+            .future-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .overview,
+            .bhutan,
+            .schools,
+            .activities,
+            .outcomes,
+            .partners-grid,
+            .future {
+                padding: 3rem 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Educational themed animations */
+        @keyframes educationPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 21, 80, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(236, 21, 80, 0); }
+        }
+
+        .school-icon:hover, .activity-icon:hover {
+            animation: educationPulse 1.5s ease-in-out;
+        }
+
+        /* Digital learning animation */
+        @keyframes digitalFlow {
+            0% { opacity: 0.3; transform: translateX(-10px); }
+            50% { opacity: 1; transform: translateX(5px); }
+            100% { opacity: 0.3; transform: translateX(-10px); }
+        }
+
+        .feature-item:hover {
+            animation: digitalFlow 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">Bhutan e-Learning</a>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#schools">Schools</a></li>
+                <li><a href="#activities">Activities</a></li>
+                <li><a href="#outcomes">Outcomes</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1>Bhutan e-Learning Initiative</h1>
+            <div class="subtitle">Digital Education Implementation</div>
+            <p>Enhancing digital education in Bhutan through e-Learning systems, capacity building, and connecting schools to DrukREN for accessible online learning and resource sharing</p>
+            <a href="#overview" class="cta-button">Explore Initiative</a>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners">
+        <div class="container">
+            <h2 class="scroll-reveal">Supported By</h2>
+            <div class="logos scroll-reveal">
+                <div class="logo-item">
+                    <img src="images/logos/tein-logo.png" alt="TEIN Cooperation Center" />
+                </div>
+                <div class="logo-item">
+                    <img src="images/logos/asia-connect-logo.png" alt="Asi@Connect" />
+                </div>
+                <div class="logo-item">
+                    <img src="images/logos/eu-logo.png" alt="European Union" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="overview">
+        <div class="container">
+            <div class="content-grid">
+                <div class="content-text scroll-reveal">
+                    <h2>Project Overview</h2>
+                    <p>This transformative project enhances digital education in Bhutan by implementing comprehensive e-Learning systems and building ICT capacity in selected schools across the kingdom.</p>
+                    <p>Our initiative focuses on developing ICT skills among teachers, students, and administrators while establishing robust campus networks and connecting schools to DrukREN to support online learning, resource sharing, and educational accessibility nationwide.</p>
+                </div>
+                <div class="stats-grid scroll-reveal">
+                    <div class="stat-card">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">People Trained</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Schools Connected</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">National Webinar</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">DrukREN Connected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bhutan Section -->
+    <section class="bhutan">
+        <div class="container">
+            <div class="bhutan-content">
+                <div class="bhutan-text scroll-reveal">
+                    <h2>Kingdom of Bhutan</h2>
+                    <p>Our comprehensive e-Learning implementation focuses on enhancing digital education capabilities across Bhutan's educational landscape, aligning with national digitalization goals.</p>
+                    
+                    <div class="bhutan-features">
+                        <div class="feature-item">
+                            <h4>🏫 School Network Infrastructure</h4>
+                            <p>Building robust campus networks and LAN infrastructure to support comprehensive e-Learning platforms.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>👩‍🏫 Teacher Capacity Building</h4>
+                            <p>Training educators in content development, e-Learning platform usage, and digital teaching methodologies.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>🌐 DrukREN Connectivity</h4>
+                            <p>Connecting schools to Bhutan's national research and education network for reliable high-speed internet.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>💻 ICT Infrastructure</h4>
+                            <p>Installing computer labs, servers, and essential ICT equipment to support digital learning environments.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bhutan-highlight scroll-reveal">
+                    <div class="flag">🇧🇹</div>
+                    <h3>Bhutan</h3>
+                    <p><strong>Lead Institution:</strong> Royal University of Bhutan</p>
+                    <p><strong>Government Partner:</strong> Ministry of Education</p>
+                    <p><strong>Network:</strong> DrukREN</p>
+                    <p><strong>Focus:</strong> Digital Drukyul & iSherig-2 alignment</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schools Section -->
+    <section id="schools" class="schools">
+        <div class="container">
+            <h2 class="scroll-reveal">Participating Schools</h2>
+            <div class="schools-grid">
+                <div class="school-card scroll-reveal">
+                    <div class="school-icon">🏫</div>
+                    <h3>Gedu Higher Secondary School</h3>
+                    <p>Primary implementation site with complete ICT infrastructure installation and comprehensive teacher training programs</p>
+                </div>
+                <div class="school-card scroll-reveal">
+                    <div class="school-icon">🏫</div>
+                    <h3>Kamji Central School</h3>
+                    <p>Central school with full e-Learning platform deployment and DrukREN connectivity for enhanced digital education</p>
+                </div>
+                <div class="school-card scroll-reveal">
+                    <div class="school-icon">🏫</div>
+                    <h3>Pakshikha Central School</h3>
+                    <p>Strategic location with complete network infrastructure and capacity building for sustainable e-Learning implementation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section class="activities">
+        <div class="container">
+            <h2 class="scroll-reveal">Implementation Activities</h2>
+            <div class="activities-grid">
+                <div class="activity-card scroll-reveal">
+                    <div class="activity-icon">🤝</div>
+                    <h3>Stakeholder Meetings</h3>
+                    <p>Comprehensive meetings with educational stakeholders to finalize school selection, implementation strategies, and sustainability planning.</p>
+                </div>
+                <div class="activity-card scroll-reveal">
+                    <div class="activity-icon">🔍</div>
+                    <h3>Infrastructure Assessment</h3>
+                    <p>Detailed evaluation of school infrastructure, connectivity readiness, and technical requirements for e-Learning implementation.</p>
+                </div>
+                <div class="activity-card scroll-reveal">
+                    <div class="activity-icon">🛠️</div>
+                    <h3>Equipment Installation</h3>
+                    <p>Installation of routers, network devices, LAN infrastructure, computer labs, and essential ICT equipment in all schools.</p>
+                </div>
+                <div class="activity-card scroll-reveal">
+                    <div class="activity-icon">💻</div>
+                    <h3>Server Configuration</h3>
+                    <p>Setup and configuration of centralized servers and Learning Management Systems for continuous e-Learning access.</p>
+                </div>
+                <div class="activity-card scroll-reveal">
+                    <div class="activity-icon">🎓</div>
+                    <h3>Training Programs</h3>
+                    <p>Comprehensive hands-on training for ICT staff, teachers, and students in system administration and e-Learning usage.</p>
+                </div>
+                <div class="activity-card scroll-reveal">
+                    <div class="activity-icon">🌐</div>
+                    <h3>National Webinar</h3>
+                    <p>Large-scale webinar promoting e-Learning adoption among students, teachers, and educational officials nationwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Grid -->
+    <section class="partners-grid">
+        <div class="container">
+            <h2 class="scroll-reveal">Partner Organizations</h2>
+            <div class="partners-institutions">
+                <div class="partner-card scroll-reveal">
+                    <h3>🇧🇹 Royal University of Bhutan</h3>
+                    <p>College of Science and Technology (CST) - Lead implementing agency and technical coordination</p>
+                </div>
+                <div class="partner-card scroll-reveal">
+                    <h3>🏛️ Ministry of Education</h3>
+                    <p>Beneficiary parent agency providing policy guidance and educational framework alignment</p>
+                </div>
+                <div class="partner-card scroll-reveal">
+                    <h3>📡 DITT</h3>
+                    <p>Department of Information Technology and Telecom - Technical infrastructure and connectivity support</p>
+                </div>
+                <div class="partner-card scroll-reveal">
+                    <h3>🌐 DrukREN</h3>
+                    <p>Druk Research and Education Network - National network connectivity and internet access provision</p>
+                </div>
+                <div class="partner-card scroll-reveal">
+                    <h3>🏫 District Education Officers</h3>
+                    <p>Chhukha District DEOs - Local coordination and educational administration support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outcomes Section -->
+    <section id="outcomes" class="outcomes">
+        <div class="container">
+            <h2 class="scroll-reveal">Key Outcomes</h2>
+                <div class="outcome-card scroll-reveal">
+                    <h3>🌐 Schools Connected to DrukREN</h3>
+                    <p>Successfully connected three schools to Bhutan's high-speed national research and education network, enabling reliable e-Learning access and digital resource sharing.</p>
+                </div>
+                <div class="outcome-card scroll-reveal">
+                    <h3>💻 ICT Infrastructure Deployed</h3>
+                    <p>Installed comprehensive LAN infrastructure, configured computer labs, and deployed essential ICT equipment across all participating schools.</p>
+                </div>
+                <div class="outcome-card scroll-reveal">
+                    <h3>🖥️ Centralized Learning System</h3>
+                    <p>Deployed and configured centralized servers and Learning Management Systems to support effective teaching and learning across the network.</p>
+                </div>
+                <div class="outcome-card scroll-reveal">
+                    <h3>📚 Training Content Developed</h3>
+                    <p>Created comprehensive content for system administration, e-Learning content development, and user training to ensure sustainable implementation.</p>
+                </div>
+                <div class="outcome-card scroll-reveal">
+                    <h3>👥 Capacity Building Achievement</h3>
+                    <p>Trained over 150 teachers, students, and ICT staff in e-Learning platform usage, content development, and network management skills.</p>
+                </div>
+                <div class="outcome-card scroll-reveal">
+                    <h3>🎯 National Outreach Success</h3>
+                    <p>Conducted successful national webinar promoting e-Learning practices and encouraging widespread participation across Bhutan's education sector.</p>
+                </div>
+                <div class="outcome-card scroll-reveal">
+                    <h3>🏆 Official Project Completion</h3>
+                    <p>Officially inaugurated e-Learning systems and successfully handed over fully functional digital education infrastructure to participating schools.</p>
+                </div>
+                <div class="outcome-card scroll-reveal">
+                    <h3>🔄 Sustainability Framework</h3>
+                    <p>Established systems for ongoing technical support, platform usage tracking, and alignment with national digital education initiatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Directions -->
+    <section class="future">
+        <div class="container">
+            <div class="future-content scroll-reveal">
+                <h2>Future Directions</h2>
+                <p>Expanding digital education capabilities across Bhutan through scaled implementation, enhanced infrastructure, and strategic alignment with national digital initiatives.</p>
+                
+                <div class="future-grid">
+                    <div class="future-item">
+                        <h3>🏫 National Scaling</h3>
+                        <p>Expand project to include additional schools across Bhutan with similar ICT needs and digital education requirements.</p>
+                    </div>
+                    <div class="future-item">
+                        <h3>⚡ Infrastructure Upgrades</h3>
+                        <p>Upgrade network facilities and ensure reliable power supply and proper equipment housing in all participating schools.</p>
+                    </div>
+                    <div class="future-item">
+                        <h3>📈 Advanced Training</h3>
+                        <p>Conduct refresher training and advanced workshops for teachers, students, and ICT staff to enhance digital capabilities.</p>
+                    </div>
+                    <div class="future-item">
+                        <h3>📚 Localized Content</h3>
+                        <p>Encourage creation of localized e-Learning materials aligned with Bhutan's national curriculum and cultural context.</p>
+                    </div>
+                    <div class="future-item">
+                        <h3>🏛️ Policy Integration</h3>
+                        <p>Align with MoE's iSherig-2 and Digital Drukyul initiatives for long-term sustainability and institutional support.</p>
+                    </div>
+                    <div class="future-item">
+                        <h3>📊 Monitoring System</h3>
+                        <p>Establish comprehensive systems to track platform usage and provide ongoing technical support for continuous improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Project Information</h3>
+                    <p>The Bhutan e-Learning Implementation project is funded under the 4th Call of the Asi@Connect program, supported by the European Union and implemented through TEIN Cooperation Center.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Educational Impact</h3>
+                    <p>Supporting digital transformation in Bhutan's education sector through comprehensive e-Learning systems, capacity building, and strategic alignment with national digitalization goals.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Sustainable Development Goals</h3>
+                    <div class="sdg-tags">
+                        <span class="sdg-tag">SDG 4: Quality Education</span>
+                        <span class="sdg-tag">SDG 9: Innovation & Infrastructure</span>
+                        <span class="sdg-tag">SDG 17: Partnerships</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Bhutan e-Learning Implementation Project. Funded by the European Union through Asi@Connect.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-reveal elements
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.style.display = 'none';
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.style.display = 'flex';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        });
+
+        // Add loading animation to stat numbers
+        const animateNumbers = () => {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const text = stat.textContent;
+                const hasPercent = text.includes('%');
+                const hasPlus = text.includes('+');
+                let target = parseInt(text.replace('%', '').replace('+', ''));
+                
+                // Handle special cases
+                if (text === '100%') target = 100;
+                
+                let current = 0;
+                const increment = target / 30;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        if (hasPercent) {
+                            stat.textContent = target + '%';
+                        } else if (hasPlus) {
+                            stat.textContent = target + '+';
+                        } else {
+                            stat.textContent = target;
+                        }
+                        clearInterval(timer);
+                    } else {
+                        if (hasPercent) {
+                            stat.textContent = Math.floor(current) + '%';
+                        } else if (hasPlus) {
+                            stat.textContent = Math.floor(current) + '+';
+                        } else {
+                            stat.textContent = Math.floor(current);
+                        }
+                    }
+                }, 50);
+            });
+        };
+
+        // Trigger number animation when stats section comes into view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsGrid = document.querySelector('.stats-grid');
+        if (statsGrid) {
+            statsObserver.observe(statsGrid);
+        }
+
+        // Add staggered animation to cards
+        const addStaggeredAnimation = () => {
+            const cardContainers = [
+                '.schools-grid .school-card',
+                '.activities-grid .activity-card',
+                '.outcomes-grid .outcome-card',
+                '.partners-institutions .partner-card'
+            ];
+
+            cardContainers.forEach(selector => {
+                const cards = document.querySelectorAll(selector);
+                cards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+            });
+        };
+
+        // Initialize staggered animations when page loads
+        document.addEventListener('DOMContentLoaded', addStaggeredAnimation);
+
+        // Add educational-themed hover effects
+        document.querySelectorAll('.school-icon, .activity-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', () => {
+                icon.style.transform = 'scale(1.3) rotate(10deg)';
+                icon.style.boxShadow = '0 8px 25px rgba(236, 21, 80, 0.4)';
+            });
+            
+            icon.addEventListener('mouseleave', () => {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+                icon.style.boxShadow = 'none';
+            });
+        });
+
+        // Add digital learning simulation effect
+        const simulateDigitalLearning = () => {
+            const features = document.querySelectorAll('.feature-item');
+            let currentFeature = 0;
+            
+            setInterval(() => {
+                features.forEach(feature => feature.style.borderLeft = '4px solid #EC1550');
+                
+                if (features[currentFeature]) {
+                    features[currentFeature].style.borderLeft = '4px solid #F69AB0';
+                    features[currentFeature].style.backgroundColor = 'rgba(236, 21, 80, 0.1)';
+                    
+                    setTimeout(() => {
+                        features[currentFeature].style.backgroundColor = '';
+                        features[currentFeature].style.borderLeft = '4px solid #EC1550';
+                    }, 1500);
+                }
+                
+                currentFeature = (currentFeature + 1) % features.length;
+            }, 3000);
+        };
+
+        // Add network connectivity animation
+        const simulateNetworkConnectivity = () => {
+            const bhutanHighlight = document.querySelector('.bhutan-highlight');
+            if (bhutanHighlight) {
+                setInterval(() => {
+                    bhutanHighlight.style.boxShadow = '0 10px 30px rgba(246, 154, 176, 0.6)';
+                    setTimeout(() => {
+                        bhutanHighlight.style.boxShadow = '0 10px 30px rgba(236, 21, 80, 0.3)';
+                    }, 1000);
+                }, 4000);
+            }
+        };
+
+        // Initialize simulations
+        document.addEventListener('DOMContentLoaded', () => {
+            simulateDigitalLearning();
+            simulateNetworkConnectivity();
+        });
+
+        // Add education pattern animation
+        const createEducationPattern = () => {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 12; i++) {
+                const edu = document.createElement('div');
+                edu.innerHTML = Math.random() > 0.5 ? '📚' : '💻';
+                edu.style.cssText = `
+                    position: absolute;
+                    font-size: 1.2rem;
+                    opacity: 0.15;
+                    animation: eduFloat ${3 + Math.random() * 4}s ease-in-out infinite;
+                    top: ${20 + Math.random() * 60}%;
+                    left: ${Math.random() * 100}%;
+                    z-index: 1;
+                `;
+                hero.appendChild(edu);
+            }
+        };
+
+        // Add CSS animation for floating education elements
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes eduFloat {
+                0%, 100% { transform: translateY(0px) rotate(0deg) opacity(0.1); }
+                50% { transform: translateY(-15px) rotate(180deg) opacity(0.2); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize education pattern
+        document.addEventListener('DOMContentLoaded', createEducationPattern);
+    </script>
+</body>
+</html>
